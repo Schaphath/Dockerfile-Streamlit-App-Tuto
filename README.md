@@ -103,7 +103,7 @@ docker rm -f my_app_web
 
 ## Auteur
 
-**Madiba**
+**@Madiba**
 
 ---
 
