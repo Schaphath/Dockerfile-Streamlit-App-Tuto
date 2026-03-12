@@ -1,0 +1,28 @@
+
+# Dockerfile.streamlit
+ARG PYTHON_VERSION="3.12"
+FROM python:${PYTHON_VERSION}-slim
+
+LABEL maintainer="Matoki"
+LABEL description="Front-end Streamlit pour prédiction cancer du sein"
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+# Installer les dépendances Streamlit
+COPY requirements-streamlit.txt .
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements-streamlit.txt
+
+# Copier le code Streamlit
+COPY app_stream.py .
+
+# Port standard Streamlit
+EXPOSE 8501
+
+CMD ["streamlit", "run", "app_stream.py", "--server.port=8501", "--server.address=0.0.0.0"]
+
+
